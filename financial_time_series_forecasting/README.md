@@ -1,8 +1,8 @@
 # Financial Time Series Forecasting
 
 **Domain:** Finance  
-**Dataset:** Public commodity and index price data via `tidyquant` / `quantmod`  
-**Language:** R  
+**Dataset:** Public commodity and index price data via `yfinance` / `pandas-datareader`  
+**Language:** Python  
 
 ---
 
@@ -16,7 +16,7 @@ This project applies a structured forecasting workflow to publicly available fin
 
 ## Dataset
 
-Price data downloaded directly in R using `tidyquant` and `quantmod` from Yahoo Finance and FRED (Federal Reserve Economic Data). No manual downloads required.
+Price data downloaded directly in Python using `yfinance` and `pandas-datareader` from Yahoo Finance and FRED. No manual downloads required.
 
 **Series used:**
 - West Texas Intermediate (WTI) crude oil prices (FRED: DCOILWTICO)
@@ -31,24 +31,24 @@ Price data downloaded directly in R using `tidyquant` and `quantmod` from Yahoo 
 ## Approach
 
 ### 1. Data ingestion
-- Pull series directly via `tidyquant::tq_get()` and `quantmod::getSymbols()`
+- Pull series directly via `yfinance.download()` and `pandas_datareader.get_data_fred()`
 - Aggregate daily to weekly closing prices
-- Log-transform prices; work with log-returns where appropriate
+- Log-transform prices; compute log-returns where appropriate
 
 ### 2. Exploratory time series analysis
 - Time series plots with trend and key events annotated
-- Stationarity testing: ADF and KPSS tests
-- ACF/PACF for transformed series
+- Stationarity testing: ADF and KPSS tests via `statsmodels`
+- ACF/PACF plots for transformed series
 - Volatility clustering assessment (relevant for financial series)
 
 ### 3. Model fitting and comparison
-- **ARIMA:** manual identification via ACF/PACF + auto.arima() comparison
-- **ETS (Exponential Smoothing):** state space models via `fable`; automatic model selection
-- **Prophet:** trend changepoint detection, weekly/annual seasonality, holiday effects
+- **ARIMA/SARIMA:** manual identification via ACF/PACF + `auto_arima` via `pmdarima`
+- **ETS (Exponential Smoothing):** state space models via `statsmodels.tsa.exponential_smoothing`
+- **Prophet:** trend changepoint detection, weekly/annual seasonality, holiday effects via `prophet`
 - **Seasonal naive:** benchmark model for comparison
 
 ### 4. Forecast evaluation: rolling-origin cross-validation
-- Rolling-origin CV with `rsample::sliding_period()`
+- Rolling-origin CV implemented with `TimeSeriesSplit` from `scikit-learn`
 - Forecast horizons: 4, 8, and 12 weeks ahead
 - Metrics: RMSE, MAE, MASE, coverage of prediction intervals
 - Model comparison table and visualisation
@@ -70,8 +70,8 @@ Price data downloaded directly in R using `tidyquant` and `quantmod` from Yahoo 
 
 | Method | Purpose |
 |---|---|
-| ARIMA | Classical parametric time series model |
-| ETS / state space models | Exponential smoothing with automatic structure selection |
+| ARIMA / SARIMA | Classical parametric time series model |
+| ETS / exponential smoothing | State space models with automatic structure selection |
 | Prophet | Flexible trend + seasonality; handles irregular data well |
 | Rolling-origin CV | Honest forecast evaluation respecting temporal order |
 | MASE | Scale-independent accuracy metric; benchmark-relative |
@@ -81,7 +81,7 @@ Price data downloaded directly in R using `tidyquant` and `quantmod` from Yahoo 
 
 ## Key Packages
 
-`tidyquant`, `quantmod`, `fable`, `fabletools`, `feasts`, `prophet`, `rsample`, `ggplot2`
+`pandas`, `numpy`, `yfinance`, `pandas-datareader`, `statsmodels`, `pmdarima`, `prophet`, `scikit-learn`, `matplotlib`, `seaborn`
 
 ---
 

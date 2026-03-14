@@ -2,7 +2,7 @@
 
 **Domain:** Product Analytics  
 **Dataset:** Online Retail II Dataset (UCI Machine Learning Repository)  
-**Language:** R  
+**Language:** Python  
 
 ---
 
@@ -33,19 +33,19 @@ The Online Retail II dataset contains all transactions from a UK-based online re
 ## Approach
 
 ### 1. Data ingestion and cleaning
-- Load dataset; inspect structure and missingness
+- Load dataset with `pandas`; inspect structure and missingness
 - Remove cancelled transactions (InvoiceNo starting with C)
 - Filter to customers with valid CustomerID
 - Compute order-level revenue (Quantity × UnitPrice)
-- Flag first purchase date per customer
+- Flag first purchase date per customer using `groupby` + `transform`
 
 ### 2. Cohort construction
 - Assign each customer to an acquisition cohort by month of first purchase
-- Compute months since acquisition for each subsequent transaction
-- Build cohort × period retention matrix
+- Compute months since acquisition for each subsequent transaction using `pd.DateOffset`
+- Build cohort × period retention matrix via `pivot_table`
 
 ### 3. Retention analysis
-- Cohort retention heatmap: % of each cohort still purchasing at each period
+- Cohort retention heatmap using `seaborn.heatmap`: % of each cohort still purchasing at each period
 - Retention curves by cohort vintage
 - Average retention curve across all cohorts
 - Month-1 and Month-3 retention rates as headline KPIs
@@ -56,14 +56,14 @@ The Online Retail II dataset contains all transactions from a UK-based online re
 - Identify highest-value cohort vintages
 
 ### 5. Funnel analysis
-- Define purchase funnel stages: first visit (proxy: first transaction) → repeat purchase → 3+ purchases → 6+ purchases
+- Define purchase funnel stages: first purchase → repeat purchase → 3+ purchases → 6+ purchases
 - Compute conversion rates at each stage
 - Drop-off analysis: where do customers disengage most?
-- Logistic regression: which customer or product attributes predict conversion past stage 1?
+- Logistic regression via `scikit-learn` or `statsmodels`: which customer or product attributes predict conversion past stage 1?
 
 ### 6. RFM segmentation (extension)
-- Recency, Frequency, Monetary segmentation
-- K-means clustering on RFM scores
+- Recency, Frequency, Monetary segmentation computed with `pandas`
+- K-means clustering via `scikit-learn` on RFM scores
 - Segment profiles: champions, at-risk, lost customers
 - Retention rates by RFM segment
 
@@ -90,7 +90,7 @@ The Online Retail II dataset contains all transactions from a UK-based online re
 
 ## Key Packages
 
-`tidyverse`, `lubridate`, `ggplot2`, `scales`, `tidymodels`, `cluster`, `factoextra`
+`pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`, `statsmodels`
 
 ---
 

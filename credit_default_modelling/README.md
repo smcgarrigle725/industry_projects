@@ -2,7 +2,7 @@
 
 **Domain:** Finance  
 **Dataset:** German Credit Dataset (UCI Machine Learning Repository)  
-**Language:** R  
+**Language:** Python  
 
 ---
 
@@ -41,25 +41,25 @@ The German Credit dataset classifies 1,000 loan applicants as good or bad credit
 - Correlation and association checks among predictors
 
 ### 3. Modelling
-- Logistic regression: full model, odds ratios, confidence intervals
-- Regularised regression: LASSO and elastic net via `glmnet` for variable selection
-- Cost-sensitive evaluation: define asymmetric misclassification cost matrix
-- Cross-validated performance comparison
+- Logistic regression: full model, odds ratios, confidence intervals via `statsmodels`
+- Regularised regression: LASSO and elastic net via `scikit-learn` for variable selection
+- Cost-sensitive evaluation: asymmetric misclassification costs via `class_weight`
+- Cross-validated performance comparison via `cross_val_score`
 
 ### 4. Class imbalance and threshold optimisation
 - Assess impact of class imbalance on default predictions
 - Precision-recall tradeoff across thresholds
 - Optimal threshold selection under the asymmetric cost structure
-- SMOTE as an alternative to threshold adjustment
+- SMOTE via `imbalanced-learn` as an alternative to threshold adjustment
 
 ### 5. Calibration and model validation
 - Calibration curve: are predicted probabilities well-calibrated?
-- Platt scaling if calibration is poor
+- Platt scaling / isotonic regression via `CalibratedClassifierCV` if calibration is poor
 - Final model performance: ROC-AUC, Brier score, Gini coefficient (standard in credit)
 
 ### 6. Results communication
-- Coefficient plot with confidence intervals (logistic model)
-- ROC curve with AUC
+- Coefficient plot with confidence intervals
+- ROC and precision-recall curves
 - Calibration plot
 - Confusion matrix under selected threshold with cost framing
 
@@ -80,7 +80,7 @@ The German Credit dataset classifies 1,000 loan applicants as good or bad credit
 
 ## Key Packages
 
-`tidymodels`, `glmnet`, `probably`, `themis`, `ggplot2`, `broom`
+`pandas`, `numpy`, `scikit-learn`, `imbalanced-learn`, `statsmodels`, `matplotlib`, `seaborn`
 
 ---
 

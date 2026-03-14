@@ -2,7 +2,7 @@
 
 **Domain:** Product Analytics  
 **Dataset:** Udacity A/B Testing Final Project Dataset (public)  
-**Language:** R  
+**Language:** Python  
 
 ---
 
@@ -35,22 +35,22 @@ The Udacity A/B Testing dataset is from a real experiment run by Udacity on thei
 ### 1. Experiment design review
 - Document the experimental hypothesis, unit of randomisation, and metric definitions
 - Distinguish between invariant metrics (sanity checks) and evaluation metrics
-- Power analysis: minimum detectable effect, required sample size, expected duration
+- Power analysis: minimum detectable effect, required sample size, expected duration via `statsmodels.stats.power`
 
 ### 2. Sanity checks
-- Verify that invariant metrics (cookie counts) are balanced between control and treatment
-- Chi-square test for randomisation balance
+- Verify invariant metrics (cookie counts) are balanced between control and treatment
+- Chi-square test for randomisation balance via `scipy.stats`
 - Day-of-week and time trend checks to rule out temporal confounding
 
 ### 3. Primary metric analysis: frequentist
-- Two-proportion z-test for gross conversion and net conversion
+- Two-proportion z-test for gross and net conversion via `statsmodels.stats.proportion`
 - Effect size with 95% confidence interval
-- Statistical significance and practical significance (minimum detectable effect threshold)
+- Statistical and practical significance (minimum detectable effect threshold)
 - Bonferroni correction for multiple metrics
 
 ### 4. Primary metric analysis: Bayesian
-- Beta-binomial model for conversion rates
-- Posterior distributions for control and treatment conversion rates
+- Beta-binomial model for conversion rates using `scipy.stats.beta`
+- Posterior distributions for control and treatment conversion rates via Monte Carlo sampling
 - Posterior probability that treatment > control
 - Credible intervals; comparison with frequentist CIs
 
@@ -60,7 +60,7 @@ The Udacity A/B Testing dataset is from a real experiment run by Udacity on thei
 - Compare sequential vs. fixed-horizon conclusions
 
 ### 6. Subgroup analysis
-- Segment by day of week, new vs. returning visitors (if available in data)
+- Segment by day of week, new vs. returning visitors
 - Interaction test: does the treatment effect differ by subgroup?
 - Explicit correction for multiple subgroup comparisons
 
@@ -94,7 +94,7 @@ The Udacity A/B Testing dataset is from a real experiment run by Udacity on thei
 
 ## Key Packages
 
-`pwr`, `BayesFactor`, `ggplot2`, `tidyverse`, `gsDesign`, `broom`
+`pandas`, `numpy`, `scipy`, `statsmodels`, `matplotlib`, `seaborn`
 
 ---
 

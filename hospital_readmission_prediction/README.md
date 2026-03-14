@@ -2,7 +2,7 @@
 
 **Domain:** Healthcare  
 **Dataset:** Diabetes 130-US Hospitals 1999–2008 (UCI Machine Learning Repository)  
-**Language:** R  
+**Language:** Python  
 
 ---
 
@@ -33,29 +33,30 @@ The Diabetes 130-US Hospitals dataset contains ~100,000 inpatient encounters for
 
 ### 1. Data ingestion and cleaning
 - Load and inspect raw data; document missingness patterns
-- Handle `?` coded missing values
+- Handle `?` coded missing values via `pandas` and `missingno`
 - Collapse readmission outcome to binary: readmitted within 30 days vs. not
-- Encode categorical variables; handle high-cardinality features (e.g. ICD-9 diagnosis codes grouped to disease categories)
+- Encode categorical variables; group high-cardinality ICD-9 diagnosis codes to disease categories
 
 ### 2. Exploratory data analysis
 - Readmission rate by key variables (age, discharge disposition, number of medications)
-- Missingness visualisation
+- Missingness visualisation via `missingno`
 - Class imbalance assessment
 
-### 3. Modelling
+### 3. Modelling pipeline
+- `scikit-learn` Pipeline combining preprocessing (imputation, encoding, scaling) and model
 - Baseline: logistic regression with clinically motivated predictors
-- Extended: random forest via `ranger` within a `tidymodels` pipeline
-- Class imbalance handling: SMOTE via `themis`
-- Hyperparameter tuning: `tune_grid()` with cross-validation
+- Extended: random forest and gradient boosting via `scikit-learn`
+- Class imbalance handling: SMOTE via `imbalanced-learn`
+- Hyperparameter tuning: `GridSearchCV` / `RandomizedSearchCV` with stratified cross-validation
 
 ### 4. Evaluation
 - ROC-AUC, precision-recall curve, F1
-- Calibration curve: are predicted probabilities reliable?
+- Calibration curve via `sklearn.calibration.CalibrationDisplay`
 - Threshold selection: optimise for sensitivity vs. specificity depending on clinical framing
-- Feature importance: permutation importance + SHAP values for top model
+- Feature importance: permutation importance and SHAP values via `shap`
 
 ### 5. Results communication
-- Summary table of model performance
+- Model performance summary table
 - Calibration plot
 - SHAP beeswarm plot of top predictors
 - Business framing: what would a 5-point improvement in AUC mean operationally?
@@ -67,17 +68,17 @@ The Diabetes 130-US Hospitals dataset contains ~100,000 inpatient encounters for
 | Method | Purpose |
 |---|---|
 | Logistic regression | Interpretable baseline; odds ratios for clinical variables |
-| Random forest (`ranger`) | Primary predictive model |
+| Random forest / gradient boosting | Primary predictive models |
 | SMOTE | Class imbalance correction |
 | Calibration curves | Assess reliability of predicted probabilities |
 | SHAP values | Model explainability for clinical stakeholders |
-| Cross-validation (`tidymodels`) | Unbiased performance estimation |
+| Stratified cross-validation | Unbiased performance estimation |
 
 ---
 
 ## Key Packages
 
-`tidymodels`, `ranger`, `themis`, `probably`, `shapviz`, `ggplot2`, `naniar`
+`pandas`, `numpy`, `scikit-learn`, `imbalanced-learn`, `shap`, `missingno`, `matplotlib`, `seaborn`
 
 ---
 
