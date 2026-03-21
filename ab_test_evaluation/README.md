@@ -26,7 +26,7 @@ The Udacity A/B Testing dataset is from a real experiment run by Udacity on thei
 - Secondary metric: gross conversion (enrollments / unique cookies)
 - Invariant metric: number of cookies (sanity check)
 
-**Source:** [Udacity A/B Testing Course — Final Project Data](https://www.kaggle.com/datasets/mariapushkareva/udacity-ab-testing-final-project)
+**Source:** Data files are hosted on GitHub — see the notebook Section 1 for direct download links. The dataset originates from Udacity's free A/B Testing course by Google (ud257).
 
 ---
 
