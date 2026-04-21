@@ -9,7 +9,6 @@ Data science and data engineering projects using public industry datasets across
 | Folder | Domain | Problem | Methods | Dataset |
 |---|---|---|---|---|
 | `hospital_readmission_prediction/` | Healthcare | 30-day readmission risk modelling | Logistic regression, random forest, scikit-learn pipelines, SHAP, calibration curves | Diabetes 130-US Hospitals (UCI) | Python |
-| `cancer_survival_analysis/` | Healthcare | Patient survival and competing risks after cancer diagnosis | Kaplan-Meier, Cox PH, competing risks, time-varying covariates | SEER / TCGA clinical data | R |
 | `credit_default_modelling/` | Finance | Credit default risk scoring and threshold optimisation | Logistic regression, LASSO/elastic net, class imbalance, calibration | German Credit (UCI) | Python |
 | `financial_time_series_forecasting/` | Finance | Commodity and index price forecasting with model comparison | ARIMA, ETS, Prophet, rolling-origin CV, forecast evaluation | yfinance / FRED public data | Python |
 | `claims_frequency_severity/` | Insurance | Motor insurance pure premium modelling | Poisson/NB frequency, Gamma/Tweedie severity, combined pure premium | French MTPL (CASdatasets) | R |
